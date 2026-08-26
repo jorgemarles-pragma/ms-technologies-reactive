@@ -1,0 +1,2 @@
+-- R2DBC no soporta ddl-auto. Declara aqui el esquema del microservicio.
+-- Se ejecuta segun spring.sql.init.mode.

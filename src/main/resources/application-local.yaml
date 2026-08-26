@@ -1,0 +1,22 @@
+spring:
+  r2dbc:
+    url: ${SPRING_R2DBC_URL:r2dbc:postgresql://localhost:5432/mstecnologias}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    root: INFO
+    com.pragma.jamarlesf.mstecnologias: DEBUG
+    org.springframework.r2dbc: DEBUG
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0

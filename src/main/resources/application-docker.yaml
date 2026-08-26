@@ -1,0 +1,18 @@
+spring:
+  r2dbc:
+    url: ${SPRING_R2DBC_URL:r2dbc:postgresql://mstecnologias-db:5432/mstecnologias}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  sql:
+    init:
+      mode: ${SQL_INIT_MODE:always}
+
+logging:
+  level:
+    root: INFO
+    com.pragma.jamarlesf.mstecnologias: INFO
+
+management:
+  endpoint:
+    health:
+      show-details: never
