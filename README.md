@@ -3,7 +3,7 @@
 Microservicio reactivo hexagonal de gestión de tecnologías para el reto 3.
 
 Este repositorio es un **andamiaje**: contiene toda la configuración lista (build, perfiles, Docker,
-seguridad, observabilidad) y el árbol de carpetas de la arquitectura hexagonal, pero **sin código de
+observabilidad) y el árbol de carpetas de la arquitectura hexagonal, pero **sin código de
 dominio, aplicación ni infraestructura**. El único archivo fuente es la clase principal de Spring Boot.
 
 ## Stack
@@ -15,7 +15,6 @@ dominio, aplicación ni infraestructura**. El único archivo fuente es la clase 
 | Gradle (wrapper) | 8.14.5 |
 | Web | Spring WebFlux (reactivo, sin servlet) |
 | Persistencia | Spring Data R2DBC + PostgreSQL (`r2dbc-postgresql`) |
-| Seguridad | Spring Security reactivo + jjwt 0.13.0 |
 | Documentación | springdoc-openapi WebFlux UI 2.9.0 |
 | Resiliencia | Resilience4j 2.3.0 (circuit breaker, retry, bulkhead, time limiter) |
 | Observabilidad | Actuator + Micrometer + Prometheus + tracing Brave |
@@ -34,7 +33,7 @@ OpenFeign ni `RestTemplate`. Las llamadas salientes se hacen con `WebClient`.
 ## Correr en local
 
 ```bash
-cp .env.example .env      # ajusta credenciales y JWT_SECRET
+cp .env.example .env      # ajusta credenciales de base de datos
 ./gradlew bootRun --args='--spring.profiles.active=local'
 ```
 
@@ -84,7 +83,6 @@ ejecuta según `spring.sql.init.mode` (`always` por defecto). Escribe ahí las s
 | `POSTGRES_DB` | Nombre de la base (sólo compose) | `mstecnologias` |
 | `DB_PORT` | Puerto publicado de PostgreSQL (sólo compose) | `5432` |
 | `SQL_INIT_MODE` | Ejecución de `schema.sql` (`always`/`never`) | `always` |
-| `JWT_SECRET` | Clave HS256 en Base64 para firmar/validar tokens | sin valor (obligatoria) |
 | `TRACING_SAMPLING` | Probabilidad de muestreo de trazas | `0.1` |
 | `SPRING_PROFILES_ACTIVE` | Perfil activo (`local` / `docker`) | ninguno |
 
@@ -122,11 +120,8 @@ src/main/java/com/pragma/jamarlesf/mstecnologias/
     │   ├── entity/                 entidades R2DBC (@Table)
     │   ├── mapper/                 MapStruct entre entidad y modelo
     │   └── repository/             ReactiveCrudRepository / R2dbcRepository
-    ├── out/rest/                   clientes salientes con WebClient
-    │   ├── adapter/  client/  configuration/  dto/  exception/
-    └── security/                   JWT reactivo
-        ├── filter/                 WebFilter de autenticación
-        └── utils/                  generación y validación de tokens
+    └── out/rest/                   clientes salientes con WebClient
+        ├── adapter/  client/  configuration/  dto/  exception/
 ```
 
 Regla de dependencias: `infrastructure` → `application` → `domain`. El dominio no conoce a nadie.
