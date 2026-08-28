@@ -30,7 +30,6 @@ ext {
 	lombokMapstructBindingVersion = "0.2.0"
 	openApiVersion = "2.9.0"
 	resilience4jVersion = "2.3.0"
-	jjwtVersion = "0.13.0"
 }
 
 dependencies {
@@ -50,12 +49,6 @@ dependencies {
 	implementation 'io.micrometer:micrometer-tracing-bridge-brave'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 
-	// --- seguridad reactiva (JWT) ---
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
-	runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
-	runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
-
 	// --- documentacion (OpenAPI) ---
 	implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:${openApiVersion}"
 
@@ -71,7 +64,6 @@ dependencies {
 	// --- test ---
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.security:spring-security-test'
 	testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
 	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
